@@ -952,7 +952,7 @@ intro_table_6 <- intro_table_6_join |>
     select(State, `Revenue 2020`, `Revenue 2002`, `Total Revenue Per Pupil Diff`, `Reading 4 Score Diff`, `Math 4 Score Diff`, `Reading 8 Score Diff`, `Math 8 Score Diff`, `Low Income Reading 4 Score`, `Low Income Math 4 Score`, `Low Income Reading 8 Score`, `Low Income Math 8 Score`)
 
 
-
+write_csv(intro_table_6, "body/introduction/intro_table_6.csv")
 
 
 # Revenue and Expenditure Trends
