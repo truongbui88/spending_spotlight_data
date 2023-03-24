@@ -689,7 +689,8 @@ rev_benefit_trends <- ss_data_cpi |>
         `Benefit Spending Growth / Revenue Growth` = `Total Benefits Raw Growth` / `Total Revenue Raw Growth`
     ) |>
     arrange(desc(`Total Benefits Growth`)) |>
-    select(State, `Total Benefits - Per Pupil 2002`, `Total Benefits - Per Pupil 2020`, `Total Benefits Growth`, `Total Revenue Raw Growth`, `Benefit Spending Growth / Revenue Growth`) |>
+    select(State, `Total Benefits - Per Pupil 2002`, `Total Benefits - Per Pupil 2020`, `Total Benefits Growth`, `Total Benefits Raw Growth`, `Benefit Spending Growth / Revenue Growth`) |>
+    mutate_at(vars(`Total Benefits Raw Growth`), round, 0) |>
     mutate_at(vars(`Total Benefits Growth`), round, 3) |>
     mutate_at(vars(`Benefit Spending Growth / Revenue Growth`), round, 3) |>
     head(10)
