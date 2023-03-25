@@ -1598,7 +1598,7 @@ salary_pct <- salary_pct |>
     left_join(
         salary |>
             filter(Year == 2002) |>
-          mutate(`Average Salary` = `Salary Adj`) |>
+            mutate(`Average Salary` = `Salary Adj`) |>
             select(State, `Average Salary`),
         by = "State"
     ) |>
@@ -2036,3 +2036,242 @@ low_income_naep_reading_4_table <- rbind(low_income_naep_reading_4_table_us, low
 
 low_income_naep_reading_4_table <- low_income_naep_reading_4_table |>
     mutate(Growth = round(Growth, 0))
+
+
+# Write csv
+write_csv(low_income_naep_reading_4_table, "output_data/body/student_outcomes/low_income_naep_reading_4_table.csv")
+
+
+# Create a table for 4th Grade NAEP Math Score Growth (2003-2019)
+
+low_income_naep_math_4 <- low_income_naep_math_4 |>
+    filter(State != "DoDEA") |>
+    mutate(Eligible = as.numeric(NAEP))
+
+low_income_naep_math_4_table <- low_income_naep_math_4 |>
+    filter(Year == 2019) |>
+    filter(State != "District of Columbia") |>
+    filter(State != "Puerto Rico") |>
+    select(State, `Eligible`) |>
+    left_join(
+        low_income_naep_math_4 |>
+            filter(Year == 2003) |>
+            select(State, Eligible),
+        by = "State"
+    ) |>
+    mutate(`Math Score Diff` = `Eligible.x` - `Eligible.y`) |>
+    select(State, `Eligible.x`, `Eligible.y`, `Math Score Diff`) |>
+    rename(`Math Score 2019` = `Eligible.x`, `Math Score 2003` = `Eligible.y`) |>
+    arrange(desc(`Math Score Diff`))
+
+
+# Remove United States, calculate 2019 rank, "Reading Score Pct" rank, then add back the United States at the top
+
+low_income_naep_math_4_table_states <- low_income_naep_math_4_table |>
+    filter(State != "United States") |>
+    mutate(`Growth Rank` = rank(-`Math Score Diff`)) |>
+    mutate(`2019 Rank` = rank(-`Math Score 2019`)) |>
+    mutate(`Math Score 2019` = round(`Math Score 2019`, 0)) |>
+    mutate(`Math Score 2003` = round(`Math Score 2003`, 0)) |>
+    rename(
+        `2019` = `Math Score 2019`,
+        `2003` = `Math Score 2003`,
+        `Growth` = `Math Score Diff`
+    ) |>
+    select(
+        `Growth Rank`,
+        `2019 Rank`,
+        State,
+        `2003`,
+        `2019`,
+        `Growth`
+    )
+
+
+low_income_naep_math_4_table_us <- low_income_naep_math_4_table |>
+    filter(State == "United States") |>
+    mutate(
+        `Growth Rank` = " ",
+        `2019 Rank` = " "
+    ) |>
+    mutate(`2019` = round(`Math Score 2019`, 0)) |>
+    mutate(`2003` = round(`Math Score 2003`, 0)) |>
+    rename(
+        `Growth` = `Math Score Diff`
+    ) |>
+    select(
+        `Growth Rank`,
+        `2019 Rank`,
+        State,
+        `2003`,
+        `2019`,
+        `Growth`
+    )
+
+
+low_income_naep_math_4_table <- rbind(low_income_naep_math_4_table_us, low_income_naep_math_4_table_states)
+
+
+low_income_naep_math_4_table <- low_income_naep_math_4_table |>
+    mutate(Growth = round(Growth, 0))
+
+
+# Write csv
+write_csv(low_income_naep_math_4_table, "output_data/body/student_outcomes/low_income_naep_math_4_table.csv")
+
+
+
+# Create a table for 8th Grade NAEP Reading Score Growth (2003-2019)
+
+low_income_naep_reading_8 <- low_income_naep_reading_8 |>
+    filter(State != "DoDEA") |>
+    mutate(Eligible = as.numeric(NAEP))
+
+low_income_naep_reading_8_table <- low_income_naep_reading_8 |>
+    filter(Year == 2019) |>
+    filter(State != "District of Columbia") |>
+    filter(State != "Puerto Rico") |>
+    select(State, `Eligible`) |>
+    left_join(
+        low_income_naep_reading_8 |>
+            filter(Year == 2003) |>
+            select(State, Eligible),
+        by = "State"
+    ) |>
+    mutate(`Reading Score Diff` = `Eligible.x` - `Eligible.y`) |>
+    select(State, `Eligible.x`, `Eligible.y`, `Reading Score Diff`) |>
+    rename(`Reading Score 2019` = `Eligible.x`, `Reading Score 2003` = `Eligible.y`) |>
+    arrange(desc(`Reading Score Diff`))
+
+
+# Remove United States, calculate 2019 rank, "Reading Score Pct" rank, then add back the United States at the top
+
+low_income_naep_reading_8_table_states <- low_income_naep_reading_8_table |>
+    filter(State != "United States") |>
+    mutate(`Growth Rank` = rank(-`Reading Score Diff`)) |>
+    mutate(`2019 Rank` = rank(-`Reading Score 2019`)) |>
+    mutate(`Reading Score 2019` = round(`Reading Score 2019`, 0)) |>
+    mutate(`Reading Score 2003` = round(`Reading Score 2003`, 0)) |>
+    rename(
+        `2019` = `Reading Score 2019`,
+        `2003` = `Reading Score 2003`,
+        `Growth` = `Reading Score Diff`
+    ) |>
+    select(
+        `Growth Rank`,
+        `2019 Rank`,
+        State,
+        `2003`,
+        `2019`,
+        `Growth`
+    )
+
+
+low_income_naep_reading_8_table_us <- low_income_naep_reading_8_table |>
+    filter(State == "United States") |>
+    mutate(
+        `Growth Rank` = " ",
+        `2019 Rank` = " "
+    ) |>
+    mutate(`2019` = round(`Reading Score 2019`, 0)) |>
+    mutate(`2003` = round(`Reading Score 2003`, 0)) |>
+    rename(
+        `Growth` = `Reading Score Diff`
+    ) |>
+    select(
+        `Growth Rank`,
+        `2019 Rank`,
+        State,
+        `2003`,
+        `2019`,
+        `Growth`
+    )
+
+
+low_income_naep_reading_8_table <- rbind(low_income_naep_reading_8_table_us, low_income_naep_reading_8_table_states)
+
+
+low_income_naep_reading_8_table <- low_income_naep_reading_8_table |>
+    mutate(Growth = round(Growth, 0))
+
+
+# Write csv
+write_csv(low_income_naep_reading_8_table, "output_data/body/student_outcomes/low_income_naep_reading_8_table.csv")
+
+
+# Create a table for 8th Grade NAEP Math Score Growth (2003-2019)
+
+low_income_naep_math_8 <- low_income_naep_math_8 |>
+    filter(State != "DoDEA") |>
+    mutate(Eligible = as.numeric(NAEP))
+
+low_income_naep_math_8_table <- low_income_naep_math_8 |>
+    filter(Year == 2019) |>
+    filter(State != "District of Columbia") |>
+    filter(State != "Puerto Rico") |>
+    select(State, `Eligible`) |>
+    left_join(
+        low_income_naep_math_8 |>
+            filter(Year == 2003) |>
+            select(State, Eligible),
+        by = "State"
+    ) |>
+    mutate(`Math Score Diff` = `Eligible.x` - `Eligible.y`) |>
+    select(State, `Eligible.x`, `Eligible.y`, `Math Score Diff`) |>
+    rename(`Math Score 2019` = `Eligible.x`, `Math Score 2003` = `Eligible.y`) |>
+    arrange(desc(`Math Score Diff`))
+
+
+# Remove United States, calculate 2019 rank, "Math Score Pct" rank, then add back the United States at the top
+
+low_income_naep_math_8_table_states <- low_income_naep_math_8_table |>
+    filter(State != "United States") |>
+    mutate(`Growth Rank` = rank(-`Math Score Diff`)) |>
+    mutate(`2019 Rank` = rank(-`Math Score 2019`)) |>
+    mutate(`Math Score 2019` = round(`Math Score 2019`, 0)) |>
+    mutate(`Math Score 2003` = round(`Math Score 2003`, 0)) |>
+    rename(
+        `2019` = `Math Score 2019`,
+        `2003` = `Math Score 2003`,
+        `Growth` = `Math Score Diff`
+    ) |>
+    select(
+        `Growth Rank`,
+        `2019 Rank`,
+        State,
+        `2003`,
+        `2019`,
+        `Growth`
+    )
+
+
+low_income_naep_math_8_table_us <- low_income_naep_math_8_table |>
+    filter(State == "United States") |>
+    mutate(
+        `Growth Rank` = " ",
+        `2019 Rank` = " "
+    ) |>
+    mutate(`2019` = round(`Math Score 2019`, 0)) |>
+    mutate(`2003` = round(`Math Score 2003`, 0)) |>
+    rename(
+        `Growth` = `Math Score Diff`
+    ) |>
+    select(
+        `Growth Rank`,
+        `2019 Rank`,
+        State,
+        `2003`,
+        `2019`,
+        `Growth`
+    )
+
+
+low_income_naep_math_8_table <- rbind(low_income_naep_math_8_table_us, low_income_naep_math_8_table_states)
+
+
+low_income_naep_math_8_table <- low_income_naep_math_8_table |>
+    mutate(Growth = round(Growth, 0))
+
+
+# Write csv
+write_csv(low_income_naep_math_8_table, "output_data/body/student_outcomes/low_income_naep_math_8_table.csv")
