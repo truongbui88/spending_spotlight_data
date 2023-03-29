@@ -147,3 +147,44 @@ rev_data <- left_join(total_rev, fed_rev, by = c("Year", "State", "Format")) |>
 
 # Save data
 write_csv(rev_data, "output_data/appendix/rev_data_total.csv")
+
+
+# Create a table with `Total Revenue - Per Pupil` and Enrollment change for each state between 2002 and 2020
+
+# Create a data frame with the change in `Total Revenue - Per Pupil` for each state between 2002 and 2020
+rev_change <- ss_data_cpi |>
+    select(Year, State, `Total Revenue - Per Pupil`) |>
+    filter(Year == 2002 | Year == 2020) |>
+    pivot_wider(
+        names_from = Year,
+        values_from = `Total Revenue - Per Pupil`
+    ) |>
+    mutate(
+        `Total Revenue - Per Pupil Percent Change` = `2020` / `2002` - 1
+    ) |>
+    rename(
+        `Total Revenue - Per Pupil 2020` = `2020`
+    ) |>
+    select(State, `Total Revenue - Per Pupil Percent Change`, `Total Revenue - Per Pupil 2020`)
+
+# Create a data frame with the change in Enrollment for each state between 2002 and 2020
+enroll_change <- ss_data_cpi |>
+    select(Year, State, Enrollment) |>
+    filter(Year == 2002 | Year == 2020) |>
+    pivot_wider(
+        names_from = Year,
+        values_from = Enrollment
+    ) |>
+    mutate(
+        `Enrollment Percent Change` = `2020` / `2002` - 1
+    ) |>
+    rename(
+        `Enrollment (2020)` = `2020`
+    ) |>
+    select(State, `Enrollment Percent Change`, `Enrollment (2020)`)
+
+# Combine the two data frames into one
+rev_enroll_change <- left_join(rev_change, enroll_change, by = "State")
+
+# Save data
+write_csv(rev_enroll_change, "output_data/appendix/rev_enrollment_table.csv")
