@@ -188,3 +188,64 @@ rev_enroll_change <- left_join(rev_change, enroll_change, by = "State")
 
 # Save data
 write_csv(rev_enroll_change, "output_data/appendix/rev_enrollment_table.csv")
+
+
+# Salary & Benefits
+
+ss_data_cpi_ii <- ss_data_cpi |>
+    mutate(
+        `Total Salary + Benefits - Per Pupil` = `Total Salary - Per Pupil` + `Total Benefits - Per Pupil`,
+        `Total Salary - Per Pupil Percent` = `Total Salary - Per Pupil` / `Total Salary + Benefits - Per Pupil`,
+        `Total Benefits - Per Pupil Percent` = `Total Benefits - Per Pupil` / `Total Salary + Benefits - Per Pupil`
+    )
+
+
+# ss_data_cpi with Total Salary as the column.
+# Pivot wider and make a column called Format which identifies whether the data is in Total, Per Pupil, or Percent format.
+
+ss_data_cpi_salary <- ss_data_cpi_ii |>
+    select(
+        Year, State,
+        `Total Salary`, `Total Salary - Per Pupil`, `Total Salary - Per Pupil Percent`
+    ) |>
+    mutate(
+        `Total - Inflation Adjusted` = `Total Salary`,
+        `Per Student - Inflation Adjusted` = `Total Salary - Per Pupil`,
+        `Percent` = `Total Salary - Per Pupil Percent`
+    ) |>
+    select(Year, State, `Total - Inflation Adjusted`, `Per Student - Inflation Adjusted`, `Percent`) |>
+    group_by(Year, State) |>
+    pivot_longer(
+        !c(Year, State),
+        names_to = "Format",
+        values_to = "Total Salary"
+    )
+
+# ss_data_cpi with Total Benefits as the column.
+# Pivot wider and make a column called Format which identifies whether the data is in Total, Per Pupil, or Percent format.
+
+ss_data_cpi_benefits <- ss_data_cpi_ii |>
+    select(
+        Year, State,
+        `Total Benefits`, `Total Benefits - Per Pupil`, `Total Benefits - Per Pupil Percent`
+    ) |>
+    mutate(
+        `Total - Inflation Adjusted` = `Total Benefits`,
+        `Per Student - Inflation Adjusted` = `Total Benefits - Per Pupil`,
+        `Percent` = `Total Benefits - Per Pupil Percent`
+    ) |>
+    select(Year, State, `Total - Inflation Adjusted`, `Per Student - Inflation Adjusted`, `Percent`) |>
+    group_by(Year, State) |>
+    pivot_longer(
+        !c(Year, State),
+        names_to = "Format",
+        values_to = "Total Benefits"
+    )
+
+# Combine ss_data_cpi_salary and ss_data_cpi_benefits into one data frame
+ss_data_cpi_salary_benefits <- left_join(ss_data_cpi_salary, ss_data_cpi_benefits, by = c("Year", "State", "Format"))
+
+# Replace
+
+# Save data
+write_csv(ss_data_cpi_salary_benefits, "output_data/appendix/salary_benefits.csv")
