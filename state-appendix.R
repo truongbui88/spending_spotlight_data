@@ -245,7 +245,34 @@ ss_data_cpi_benefits <- ss_data_cpi_ii |>
 # Combine ss_data_cpi_salary and ss_data_cpi_benefits into one data frame
 ss_data_cpi_salary_benefits <- left_join(ss_data_cpi_salary, ss_data_cpi_benefits, by = c("Year", "State", "Format"))
 
-# Replace
 
 # Save data
 write_csv(ss_data_cpi_salary_benefits, "output_data/appendix/salary_benefits.csv")
+
+
+
+# Salary & Benefits Percent Change
+
+ss_data_cpi_iii <- ss_data_cpi |>
+    mutate(`Total Salary` = `Total Salary - Per Pupil`) |>
+    mutate(`Total Benefits` = `Total Benefits - Per Pupil`)
+
+ss_data_cpi_iii <- ss_data_cpi_iii |>
+    # filter(Year != 2002) |>
+    left_join(
+        ss_data_cpi_iii |>
+            filter(Year == 2002) |>
+            select(State, `Total Salary`, `Total Benefits`),
+        by = "State"
+    ) |>
+    mutate(
+        `Total Salary - Per Pupil Percent Change` = `Total Salary.x` / `Total Salary.y` - 1,
+        `Total Benefits - Per Pupil Percent Change` = `Total Benefits.x` / `Total Benefits.y` - 1
+    ) |>
+    select(Year, State, `Total Salary - Per Pupil Percent Change`, `Total Benefits - Per Pupil Percent Change`, `Total Salary.x`, `Total Benefits.x`) |>
+    mutate(`Total Salary` = `Total Salary.x`) |>
+    mutate(`Total Benefits` = `Total Benefits.x`) |>
+    select(-`Total Salary.x`, -`Total Benefits.x`)
+
+
+write_csv(ss_data_cpi_iii, "output_data/appendix/salary_benefits_pct.csv")
