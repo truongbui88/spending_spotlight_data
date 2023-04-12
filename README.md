@@ -6,10 +6,10 @@
 ### NCES - Digest of Education Statistics:
  - Teacher Salary: 
    - 2020: https://nces.ed.gov/programs/digest/d21/tables/dt21_211.60.asp
-   - 2002:
+   - 2002: https://nces.ed.gov/programs/digest/d04/tables/dt04_078.asp
  - Teachers / Non-Teachers:
    - 2020: https://nces.ed.gov/programs/digest/d21/tables/dt21_213.40.asp
-   - 2002:
+   - 2002: https://nces.ed.gov/programs/digest/d05/tables/dt05_081.asp
  - Complete Staffing (seem to be multiple sources for this): 
    - 2020: https://nces.ed.gov/programs/digest/d21/tables/dt21_213.20.asp
    - 2002: https://nces.ed.gov/programs/digest/d04/tables/dt04_081.asp
