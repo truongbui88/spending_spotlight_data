@@ -8,11 +8,11 @@
    - 2020:
    - 2002:
  - Teachers / Non-Teachers: https://nces.ed.gov/programs/digest/d21/tables/dt21_213.40.asp
-  - 2020:
-  - 2002:
+   - 2020:
+   - 2002:
  - Complete Staffing (seem to be multiple sources for this): https://nces.ed.gov/programs/digest/d21/tables/dt21_213.60.asp
-  - 2020:
-  - 2002: 
+   - 2020:
+   - 2002: 
 ### NCES - NAEP
 Not a lot to say about this. Click the link (https://www.nationsreportcard.gov/data_tools.aspx) and go to Data Explorer. The selections should follow logically (4th/8th grade reading/math for the years between 2003 and 2019). For 12th grade reading the year time range is between 2002 and 2019—and the math time range is between 2005 and 2019.
  
