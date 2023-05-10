@@ -3,6 +3,9 @@
 
 ## Instructions
 
+### BLS - CPI
+- FY annual average checked for 2020, 2019, 2018 all match (05/10/23) https://fred.stlouisfed.org/series/CPIAUCSL
+
 ### NCES - Digest of Education Statistics:
  - Teacher Salary: 
    - 2020: https://nces.ed.gov/programs/digest/d21/tables/dt21_211.60.asp
@@ -20,8 +23,7 @@ Click the link (https://www.nationsreportcard.gov/data_tools.aspx) and go to Dat
 #### Long-Term NAEP
 Downloadable data can be found at the bottom of this page: https://www.nationsreportcard.gov/ltt/mathematics/student-group-scores/?age=9.
  
-### BLS - CPI
-- FY annual average checked for 2020, 2019, 2018 all match (05/10/23) https://fred.stlouisfed.org/series/CPIAUCSL
+
  
  ## Average Teacher Salary
  Alabama data was validated. Given the structure of the data, validating the United States & Wyoming would be good validation.
