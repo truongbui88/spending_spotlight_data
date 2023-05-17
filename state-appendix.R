@@ -1,5 +1,6 @@
 # Load libraries
 library(tidyverse)
+library(jsonlite)
 options(scipen = 999)
 
 # Load data
@@ -147,6 +148,12 @@ rev_data <- left_join(total_rev, fed_rev, by = c("Year", "State", "Format")) |>
 
 # Save data
 write_csv(rev_data, "output_data/appendix/rev_data_total.csv")
+
+# Write this data to json
+rev_data_total_json <- toJSON(rev_data, pretty = TRUE)
+write(rev_data_total_json, "output_data/appendix/rev_data_total.json")
+
+
 
 
 # Create a table with `Total Revenue - Per Pupil` and Enrollment change for each state between 2002 and 2020
