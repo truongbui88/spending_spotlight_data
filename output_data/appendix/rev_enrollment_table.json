@@ -1,0 +1,359 @@
+[
+  {
+    "State": "Alabama",
+    "Total Revenue - Per Pupil Percent Change": 0.1508,
+    "Total Revenue - Per Pupil 2020": 11729.18,
+    "Enrollment Percent Change": 0.0229,
+    "Enrollment (2020)": 743012
+  },
+  {
+    "State": "Alaska",
+    "Total Revenue - Per Pupil Percent Change": 0.3226,
+    "Total Revenue - Per Pupil 2020": 19782.95,
+    "Enrollment Percent Change": -0.0075,
+    "Enrollment (2020)": 132017
+  },
+  {
+    "State": "Arizona",
+    "Total Revenue - Per Pupil Percent Change": 0.0422,
+    "Total Revenue - Per Pupil 2020": 10790.4,
+    "Enrollment Percent Change": 0.0893,
+    "Enrollment (2020)": 936332
+  },
+  {
+    "State": "Arkansas",
+    "Total Revenue - Per Pupil Percent Change": 0.1733,
+    "Total Revenue - Per Pupil 2020": 11828.05,
+    "Enrollment Percent Change": 0.0608,
+    "Enrollment (2020)": 476465
+  },
+  {
+    "State": "California",
+    "Total Revenue - Per Pupil Percent Change": 0.3578,
+    "Total Revenue - Per Pupil 2020": 16934.19,
+    "Enrollment Percent Change": -0.0813,
+    "Enrollment (2020)": 5641492
+  },
+  {
+    "State": "Colorado",
+    "Total Revenue - Per Pupil Percent Change": 0.2804,
+    "Total Revenue - Per Pupil 2020": 14495.98,
+    "Enrollment Percent Change": 0.2013,
+    "Enrollment (2020)": 891187
+  },
+  {
+    "State": "Connecticut",
+    "Total Revenue - Per Pupil Percent Change": 0.4497,
+    "Total Revenue - Per Pupil 2020": 24874.65,
+    "Enrollment Percent Change": -0.1207,
+    "Enrollment (2020)": 483151
+  },
+  {
+    "State": "Delaware",
+    "Total Revenue - Per Pupil Percent Change": 0.3448,
+    "Total Revenue - Per Pupil 2020": 20032.22,
+    "Enrollment Percent Change": 0.1099,
+    "Enrollment (2020)": 123566
+  },
+  {
+    "State": "Florida",
+    "Total Revenue - Per Pupil Percent Change": 0.0765,
+    "Total Revenue - Per Pupil 2020": 11526.14,
+    "Enrollment Percent Change": 0.1353,
+    "Enrollment (2020)": 2838569
+  },
+  {
+    "State": "Georgia",
+    "Total Revenue - Per Pupil Percent Change": 0.0626,
+    "Total Revenue - Per Pupil 2020": 13604.82,
+    "Enrollment Percent Change": 0.1802,
+    "Enrollment (2020)": 1735585
+  },
+  {
+    "State": "Hawaii",
+    "Total Revenue - Per Pupil Percent Change": 0.2686,
+    "Total Revenue - Per Pupil 2020": 18756.38,
+    "Enrollment Percent Change": -0.0187,
+    "Enrollment (2020)": 181088
+  },
+  {
+    "State": "Idaho",
+    "Total Revenue - Per Pupil Percent Change": 0.0298,
+    "Total Revenue - Per Pupil 2020": 9802.01,
+    "Enrollment Percent Change": 0.1739,
+    "Enrollment (2020)": 289262
+  },
+  {
+    "State": "Illinois",
+    "Total Revenue - Per Pupil Percent Change": 0.5472,
+    "Total Revenue - Per Pupil 2020": 20196.8,
+    "Enrollment Percent Change": -0.0625,
+    "Enrollment (2020)": 1924972
+  },
+  {
+    "State": "Indiana",
+    "Total Revenue - Per Pupil Percent Change": 0.0192,
+    "Total Revenue - Per Pupil 2020": 13368.37,
+    "Enrollment Percent Change": 0.0032,
+    "Enrollment (2020)": 997869
+  },
+  {
+    "State": "Iowa",
+    "Total Revenue - Per Pupil Percent Change": 0.1909,
+    "Total Revenue - Per Pupil 2020": 14310.07,
+    "Enrollment Percent Change": 0.0646,
+    "Enrollment (2020)": 517324
+  },
+  {
+    "State": "Kansas",
+    "Total Revenue - Per Pupil Percent Change": 0.245,
+    "Total Revenue - Per Pupil 2020": 14588.47,
+    "Enrollment Percent Change": 0.0576,
+    "Enrollment (2020)": 497255
+  },
+  {
+    "State": "Kentucky",
+    "Total Revenue - Per Pupil Percent Change": 0.2473,
+    "Total Revenue - Per Pupil 2020": 12715.18,
+    "Enrollment Percent Change": 0.0572,
+    "Enrollment (2020)": 691816
+  },
+  {
+    "State": "Louisiana",
+    "Total Revenue - Per Pupil Percent Change": 0.3209,
+    "Total Revenue - Per Pupil 2020": 13752.79,
+    "Enrollment Percent Change": -0.1205,
+    "Enrollment (2020)": 637629
+  },
+  {
+    "State": "Maine",
+    "Total Revenue - Per Pupil Percent Change": 0.3005,
+    "Total Revenue - Per Pupil 2020": 17583.78,
+    "Enrollment Percent Change": -0.1528,
+    "Enrollment (2020)": 177350
+  },
+  {
+    "State": "Maryland",
+    "Total Revenue - Per Pupil Percent Change": 0.3145,
+    "Total Revenue - Per Pupil 2020": 18580.92,
+    "Enrollment Percent Change": 0.0562,
+    "Enrollment (2020)": 909003
+  },
+  {
+    "State": "Massachusetts",
+    "Total Revenue - Per Pupil Percent Change": 0.2613,
+    "Total Revenue - Per Pupil 2020": 21132.03,
+    "Enrollment Percent Change": -0.0637,
+    "Enrollment (2020)": 897905
+  },
+  {
+    "State": "Michigan",
+    "Total Revenue - Per Pupil Percent Change": 0.0998,
+    "Total Revenue - Per Pupil 2020": 15967.41,
+    "Enrollment Percent Change": -0.2486,
+    "Enrollment (2020)": 1299608
+  },
+  {
+    "State": "Minnesota",
+    "Total Revenue - Per Pupil Percent Change": 0.2489,
+    "Total Revenue - Per Pupil 2020": 16761.89,
+    "Enrollment Percent Change": -0.0199,
+    "Enrollment (2020)": 823690
+  },
+  {
+    "State": "Mississippi",
+    "Total Revenue - Per Pupil Percent Change": 0.2135,
+    "Total Revenue - Per Pupil 2020": 10773.54,
+    "Enrollment Percent Change": -0.0587,
+    "Enrollment (2020)": 463305
+  },
+  {
+    "State": "Missouri",
+    "Total Revenue - Per Pupil Percent Change": 0.0598,
+    "Total Revenue - Per Pupil 2020": 12402.1,
+    "Enrollment Percent Change": -0.03,
+    "Enrollment (2020)": 885375
+  },
+  {
+    "State": "Montana",
+    "Total Revenue - Per Pupil Percent Change": 0.246,
+    "Total Revenue - Per Pupil 2020": 13769.47,
+    "Enrollment Percent Change": -0.0211,
+    "Enrollment (2020)": 148547
+  },
+  {
+    "State": "Nebraska",
+    "Total Revenue - Per Pupil Percent Change": 0.1732,
+    "Total Revenue - Per Pupil 2020": 14717.12,
+    "Enrollment Percent Change": 0.1571,
+    "Enrollment (2020)": 329290
+  },
+  {
+    "State": "Nevada",
+    "Total Revenue - Per Pupil Percent Change": 0.1225,
+    "Total Revenue - Per Pupil 2020": 11755.14,
+    "Enrollment Percent Change": 0.2536,
+    "Enrollment (2020)": 447293
+  },
+  {
+    "State": "New Hampshire",
+    "Total Revenue - Per Pupil Percent Change": 0.5558,
+    "Total Revenue - Per Pupil 2020": 20130.73,
+    "Enrollment Percent Change": -0.1711,
+    "Enrollment (2020)": 168325
+  },
+  {
+    "State": "New Jersey",
+    "Total Revenue - Per Pupil Percent Change": 0.2658,
+    "Total Revenue - Per Pupil 2020": 24010.01,
+    "Enrollment Percent Change": 0.0155,
+    "Enrollment (2020)": 1350553
+  },
+  {
+    "State": "New Mexico",
+    "Total Revenue - Per Pupil Percent Change": 0.2585,
+    "Total Revenue - Per Pupil 2020": 14394.16,
+    "Enrollment Percent Change": -0.0153,
+    "Enrollment (2020)": 315372
+  },
+  {
+    "State": "New York",
+    "Total Revenue - Per Pupil Percent Change": 0.7018,
+    "Total Revenue - Per Pupil 2020": 30723.46,
+    "Enrollment Percent Change": -0.1106,
+    "Enrollment (2020)": 2531420
+  },
+  {
+    "State": "North Carolina",
+    "Total Revenue - Per Pupil Percent Change": -0.0015,
+    "Total Revenue - Per Pupil 2020": 10790.19,
+    "Enrollment Percent Change": 0.1122,
+    "Enrollment (2020)": 1441549
+  },
+  {
+    "State": "North Dakota",
+    "Total Revenue - Per Pupil Percent Change": 0.5124,
+    "Total Revenue - Per Pupil 2020": 16624.06,
+    "Enrollment Percent Change": 0.0962,
+    "Enrollment (2020)": 116129
+  },
+  {
+    "State": "Ohio",
+    "Total Revenue - Per Pupil Percent Change": 0.1468,
+    "Total Revenue - Per Pupil 2020": 16064.04,
+    "Enrollment Percent Change": -0.1223,
+    "Enrollment (2020)": 1576931
+  },
+  {
+    "State": "Oklahoma",
+    "Total Revenue - Per Pupil Percent Change": 0.0804,
+    "Total Revenue - Per Pupil 2020": 10956.11,
+    "Enrollment Percent Change": 0.0577,
+    "Enrollment (2020)": 657468
+  },
+  {
+    "State": "Oregon",
+    "Total Revenue - Per Pupil Percent Change": 0.2751,
+    "Total Revenue - Per Pupil 2020": 15844.13,
+    "Enrollment Percent Change": 0.0553,
+    "Enrollment (2020)": 580545
+  },
+  {
+    "State": "Pennsylvania",
+    "Total Revenue - Per Pupil Percent Change": 0.4911,
+    "Total Revenue - Per Pupil 2020": 21523.73,
+    "Enrollment Percent Change": -0.1167,
+    "Enrollment (2020)": 1566855
+  },
+  {
+    "State": "Rhode Island",
+    "Total Revenue - Per Pupil Percent Change": 0.3056,
+    "Total Revenue - Per Pupil 2020": 19574.23,
+    "Enrollment Percent Change": -0.1532,
+    "Enrollment (2020)": 132629
+  },
+  {
+    "State": "South Carolina",
+    "Total Revenue - Per Pupil Percent Change": 0.1899,
+    "Total Revenue - Per Pupil 2020": 14323.73,
+    "Enrollment Percent Change": 0.1198,
+    "Enrollment (2020)": 754652
+  },
+  {
+    "State": "South Dakota",
+    "Total Revenue - Per Pupil Percent Change": 0.1783,
+    "Total Revenue - Per Pupil 2020": 12410.44,
+    "Enrollment Percent Change": 0.0988,
+    "Enrollment (2020)": 139685
+  },
+  {
+    "State": "Tennessee",
+    "Total Revenue - Per Pupil Percent Change": 0.1838,
+    "Total Revenue - Per Pupil 2020": 10971.38,
+    "Enrollment Percent Change": 0.1285,
+    "Enrollment (2020)": 1013083
+  },
+  {
+    "State": "Texas",
+    "Total Revenue - Per Pupil Percent Change": 0.1632,
+    "Total Revenue - Per Pupil 2020": 13345.9,
+    "Enrollment Percent Change": 0.2553,
+    "Enrollment (2020)": 5162293
+  },
+  {
+    "State": "United States",
+    "Total Revenue - Per Pupil Percent Change": 0.2498,
+    "Total Revenue - Per Pupil 2020": 16062.11,
+    "Enrollment Percent Change": 0.0178,
+    "Enrollment (2020)": 48008047
+  },
+  {
+    "State": "Utah",
+    "Total Revenue - Per Pupil Percent Change": 0.165,
+    "Total Revenue - Per Pupil 2020": 10026.57,
+    "Enrollment Percent Change": 0.2629,
+    "Enrollment (2020)": 606880
+  },
+  {
+    "State": "Vermont",
+    "Total Revenue - Per Pupil Percent Change": 0.485,
+    "Total Revenue - Per Pupil 2020": 23575.04,
+    "Enrollment Percent Change": -0.1169,
+    "Enrollment (2020)": 86095
+  },
+  {
+    "State": "Virginia",
+    "Total Revenue - Per Pupil Percent Change": 0.1541,
+    "Total Revenue - Per Pupil 2020": 13998.09,
+    "Enrollment Percent Change": 0.116,
+    "Enrollment (2020)": 1296817
+  },
+  {
+    "State": "Washington",
+    "Total Revenue - Per Pupil Percent Change": 0.5018,
+    "Total Revenue - Per Pupil 2020": 17685.06,
+    "Enrollment Percent Change": 0.1259,
+    "Enrollment (2020)": 1136285
+  },
+  {
+    "State": "West Virginia",
+    "Total Revenue - Per Pupil Percent Change": 0.1467,
+    "Total Revenue - Per Pupil 2020": 14162.86,
+    "Enrollment Percent Change": -0.0661,
+    "Enrollment (2020)": 263486
+  },
+  {
+    "State": "Wisconsin",
+    "Total Revenue - Per Pupil Percent Change": 0.0656,
+    "Total Revenue - Per Pupil 2020": 15014.71,
+    "Enrollment Percent Change": -0.034,
+    "Enrollment (2020)": 845833
+  },
+  {
+    "State": "Wyoming",
+    "Total Revenue - Per Pupil Percent Change": 0.3007,
+    "Total Revenue - Per Pupil 2020": 19384.14,
+    "Enrollment Percent Change": 0.0721,
+    "Enrollment (2020)": 94234
+  }
+]
