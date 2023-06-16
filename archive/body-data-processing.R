@@ -689,7 +689,7 @@ rev_benefit_trends <- ss_data_cpi |>
         `Benefit Spending Growth / Revenue Growth` = `Total Benefits Raw Growth` / `Total Revenue Raw Growth`
     ) |>
     arrange(desc(`Total Benefits Growth`)) |>
-    select(State, `Total Benefits - Per Pupil 2002`, `Total Benefits - Per Pupil 2020`, `Total Benefits Growth`, `Total Benefits Raw Growth`, `Benefit Spending Growth / Revenue Growth`) |>
+    select(State, `Total Benefits - Per Pupil 2002`, `Total Benefits - Per Pupil 2020`, `Total Benefits Growth`, `Total Benefits Raw Growth`, `Total Revenue Raw Growth`, `Benefit Spending Growth / Revenue Growth`) |>
     mutate_at(vars(`Total Benefits Raw Growth`), round, 0) |>
     mutate_at(vars(`Total Benefits Growth`), round, 3) |>
     mutate_at(vars(`Benefit Spending Growth / Revenue Growth`), round, 3) |>
@@ -1592,11 +1592,11 @@ salary_pct <- salary |>
     mutate(`Salary Adj` = `Salary` * last(CPI) / CPI) |>
     mutate(`Average Salary` = `Salary Adj`)
 
-salary_pct <- salary_pct |>
+salary_pct_t <- salary_pct |>
     filter(Year == 2020) |>
     select(State, `Average Salary`) |>
     left_join(
-        salary |>
+        salary_pct |>
             filter(Year == 2002) |>
             mutate(`Average Salary` = `Salary Adj`) |>
             select(State, `Average Salary`),
@@ -1613,7 +1613,7 @@ salary_pct <- salary_pct |>
 
 # Remove the United States row, add a rank column, then add back the United States row to the top of the table
 
-salary_pct_states <- salary_pct |>
+salary_pct_states <- salary_pct_t |>
     as.data.frame() |>
     filter(State != "United States") |>
     arrange(desc(`Percent Change`)) |>
@@ -1629,7 +1629,7 @@ salary_pct_states <- salary_pct |>
     arrange(desc(`Growth`))
 
 
-salary_pct_us <- salary_pct |>
+salary_pct_us <- salary_pct_t |>
     as.data.frame() |>
     filter(State == "United States") |>
     mutate(
@@ -1644,10 +1644,10 @@ salary_pct_us <- salary_pct |>
     select(`Growth Rank`, `2020 Rank`, State, `2020`, `2002`, `Growth`)
 
 
-salary_pct <- rbind(salary_pct_us, salary_pct_states)
+salary_pct_table <- rbind(salary_pct_us, salary_pct_states)
 
 
-salary_pct <- salary_pct |>
+salary_pct_table <- salary_pct_table |>
     # Round values
     mutate(`2020` = round(`2020`, 0)) |>
     mutate(`2002` = round(`2002`, 0)) |>
@@ -1655,7 +1655,7 @@ salary_pct <- salary_pct |>
 
 
 # Write csv
-write_csv(salary_pct, "output_data/body/enrollment_staffing_trends/salary_pct.csv")
+write_csv(salary_pct_table, "output_data/body/enrollment_staffing_trends/salary_pct.csv")
 
 
 # NAEP Scores

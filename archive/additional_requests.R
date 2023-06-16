@@ -104,3 +104,263 @@ rev_change <- left_join(rev_change_02, rev_change_03)
 
 # Write csv
 write_csv(rev_change, "output_data/additional_requests/rev_change.csv")
+
+
+
+
+
+
+
+# Table 6: NAEP Score Growth for the Five Highest Spending States
+
+naep_math_4 <- read_csv("input_data/raw_naep/naep_4_math_ts.csv")
+naep_math_8 <- read_csv("input_data/raw_naep/naep_8_math_ts.csv")
+naep_reading_4 <- read_csv("input_data/raw_naep/naep_4_reading_ts.csv")
+naep_reading_8 <- read_csv("input_data/raw_naep/naep_8_reading_ts.csv")
+
+
+naep_reading_4_table <- naep_reading_4 |>
+  filter(Year == 2019) |>
+  filter(State != "District of Columbia") |>
+  filter(State != "DoDEA") |>
+  filter(State != "Puerto Rico") |>
+  select(State, `NAEP`) |>
+  left_join(
+    naep_reading_4 |>
+      filter(Year == 2003) |>
+      select(State, NAEP),
+    by = "State"
+  ) |>
+  mutate(`Reading 4 Score Pct` = `NAEP.x` / `NAEP.y` - 1) |>
+  mutate(`Reading 4 Score Diff` = `NAEP.x` - `NAEP.y`) |>
+  select(State, `Reading 4 Score Diff`) |>
+  # mutate(`Reading 4 Score Pct` = round(`Reading 4 Score Pct`, 3)) |>
+  mutate(`Reading 4 Score Diff` = round(`Reading 4 Score Diff`, 0))
+
+
+naep_reading_8_table <- naep_reading_8 |>
+  filter(Year == 2019) |>
+  filter(State != "District of Columbia") |>
+  filter(State != "DoDEA") |>
+  filter(State != "Puerto Rico") |>
+  select(State, `NAEP`) |>
+  left_join(
+    naep_reading_8 |>
+      filter(Year == 2003) |>
+      select(State, NAEP),
+    by = "State"
+  ) |>
+  mutate(`Reading 8 Score Pct` = `NAEP.x` / `NAEP.y` - 1) |>
+  mutate(`Reading 8 Score Diff` = `NAEP.x` - `NAEP.y`) |>
+  select(State, `Reading 8 Score Diff`) |>
+  # mutate(`Reading 8 Score Pct` = round(`Reading 8 Score Pct`, 3)) |>
+  mutate(`Reading 8 Score Diff` = round(`Reading 8 Score Diff`, 0))
+
+
+naep_math_4_table <- naep_math_4 |>
+  filter(Year == 2019) |>
+  filter(State != "District of Columbia") |>
+  filter(State != "DoDEA") |>
+  filter(State != "Puerto Rico") |>
+  select(State, `NAEP`) |>
+  left_join(
+    naep_math_4 |>
+      filter(Year == 2003) |>
+      select(State, NAEP),
+    by = "State"
+  ) |>
+  mutate(`Math 4 Score Pct` = `NAEP.x` / `NAEP.y` - 1) |>
+  mutate(`Math 4 Score Diff` = `NAEP.x` - `NAEP.y`) |>
+  select(State, `Math 4 Score Diff`) |>
+  # mutate(`Math 4 Score Pct` = round(`Math 4 Score Pct`, 3)) |>
+  mutate(`Math 4 Score Diff` = round(`Math 4 Score Diff`, 0))
+
+
+naep_math_8_table <- naep_math_8 |>
+  filter(Year == 2019) |>
+  filter(State != "District of Columbia") |>
+  filter(State != "DoDEA") |>
+  filter(State != "Puerto Rico") |>
+  select(State, `NAEP`) |>
+  left_join(
+    naep_math_8 |>
+      filter(Year == 2003) |>
+      select(State, NAEP),
+    by = "State"
+  ) |>
+  mutate(`Math 8 Score Pct` = `NAEP.x` / `NAEP.y` - 1) |>
+  mutate(`Math 8 Score Diff` = `NAEP.x` - `NAEP.y`) |>
+  select(State, `Math 8 Score Diff`) |>
+  # mutate(`Math 8 Score Pct` = round(`Math 8 Score Pct`, 3)) |>
+  mutate(`Math 8 Score Diff` = round(`Math 8 Score Diff`, 0))
+
+
+
+
+
+# Low income NAEP
+
+low_income_naep_math_4 <- read_csv("input_data/raw_naep/naep_4_math_low_income_ts.csv")
+low_income_naep_reading_4 <- read_csv("input_data/raw_naep/naep_4_reading_low_income_ts.csv")
+low_income_naep_math_8 <- read_csv("input_data/raw_naep/naep_8_math_low_income_ts.csv")
+low_income_naep_reading_8 <- read_csv("input_data/raw_naep/naep_8_reading_low_income_ts.csv")
+
+
+low_income_naep_reading_4 <- low_income_naep_reading_4 |>
+  filter(State != "DoDEA") |>
+  mutate(Eligible = as.numeric(NAEP))
+
+low_income_naep_reading_4_table <- low_income_naep_reading_4 |>
+  filter(Year == 2019) |>
+  filter(State != "District of Columbia") |>
+  filter(State != "DoDEA") |>
+  filter(State != "Puerto Rico") |>
+  select(State, `Eligible`) |>
+  left_join(
+    low_income_naep_reading_4 |>
+      filter(Year == 2003) |>
+      select(State, Eligible),
+    by = "State"
+  ) |>
+  mutate(`Reading Score Diff` = `Eligible.x` - `Eligible.y`) |>
+  select(State, `Reading Score Diff`) |>
+  mutate(`Reading Score Diff` = round(`Reading Score Diff`, 0)) |>
+  rename(`Low Income Reading 4 Score` = `Reading Score Diff`)
+
+
+low_income_naep_reading_8 <- low_income_naep_reading_8 |>
+  filter(State != "DoDEA") |>
+  mutate(Eligible = as.numeric(NAEP))
+
+low_income_naep_reading_8_table <- low_income_naep_reading_8 |>
+  filter(Year == 2019) |>
+  filter(State != "District of Columbia") |>
+  filter(State != "DoDEA") |>
+  filter(State != "Puerto Rico") |>
+  select(State, `Eligible`) |>
+  left_join(
+    low_income_naep_reading_8 |>
+      filter(Year == 2003) |>
+      select(State, Eligible),
+    by = "State"
+  ) |>
+  mutate(`Reading Score Diff` = `Eligible.x` - `Eligible.y`) |>
+  select(State, `Reading Score Diff`) |>
+  mutate(`Reading Score Diff` = round(`Reading Score Diff`, 0)) |>
+  rename(`Low Income Reading 8 Score` = `Reading Score Diff`)
+
+
+low_income_naep_math_4 <- low_income_naep_math_4 |>
+  filter(State != "DoDEA") |>
+  mutate(Eligible = as.numeric(NAEP))
+
+low_income_naep_math_4_table <- low_income_naep_math_4 |>
+  filter(Year == 2019) |>
+  filter(State != "District of Columbia") |>
+  filter(State != "DoDEA") |>
+  filter(State != "Puerto Rico") |>
+  select(State, `Eligible`) |>
+  left_join(
+    low_income_naep_math_4 |>
+      filter(Year == 2003) |>
+      select(State, Eligible),
+    by = "State"
+  ) |>
+  mutate(`Math Score Diff` = `Eligible.x` - `Eligible.y`) |>
+  select(State, `Math Score Diff`) |>
+  mutate(`Math Score Diff` = round(`Math Score Diff`, 0)) |>
+  rename(`Low Income Math 4 Score` = `Math Score Diff`)
+
+
+low_income_naep_math_8 <- low_income_naep_math_8 |>
+  filter(State != "DoDEA") |>
+  mutate(Eligible = as.numeric(NAEP))
+
+low_income_naep_math_8_table <- low_income_naep_math_8 |>
+  filter(Year == 2019) |>
+  filter(State != "District of Columbia") |>
+  filter(State != "DoDEA") |>
+  filter(State != "Puerto Rico") |>
+  select(State, `Eligible`) |>
+  left_join(
+    low_income_naep_math_8 |>
+      filter(Year == 2003) |>
+      select(State, Eligible),
+    by = "State"
+  ) |>
+  mutate(`Math Score Diff` = `Eligible.x` - `Eligible.y`) |>
+  select(State, `Math Score Diff`) |>
+  mutate(`Math Score Diff` = round(`Math Score Diff`, 0)) |>
+  rename(`Low Income Math 8 Score` = `Math Score Diff`)
+
+
+# Create a table of the top 5 and bottom 5 states for `Total Revenue Per Pupil`
+
+intro_table_6 <- ss_data_cpi |>
+  filter(Year == 2019) |>
+  filter(State != "District of Columbia") |>
+  select(State, `Total Revenue - Per Pupil`) |>
+  left_join(
+    ss_data_cpi |>
+      filter(Year == 2003) |>
+      select(State, `Total Revenue - Per Pupil`),
+    by = "State"
+  ) |>
+  mutate(`Total Revenue Per Pupil Diff` = `Total Revenue - Per Pupil.x` / `Total Revenue - Per Pupil.y` - 1) |>
+  arrange(desc(`Total Revenue Per Pupil Diff`)) |>
+  mutate(`Total Revenue Per Pupil Diff` = round(`Total Revenue Per Pupil Diff`, 3))
+
+intro_table_6_top <- intro_table_6 |>
+  head(3)
+
+intro_table_6_bottom <- intro_table_6 |>
+  tail(3)
+
+# Row bind the top and bottom tables
+intro_table_6 <- rbind(intro_table_6_top, intro_table_6_bottom)
+
+
+# Left join NAEP tables to intro table
+
+intro_table_6_join <- intro_table_6 |>
+  left_join(
+    naep_math_4_table,
+    by = "State"
+  ) |>
+  left_join(
+    naep_math_8_table,
+    by = "State"
+  ) |>
+  left_join(
+    naep_reading_4_table,
+    by = "State"
+  ) |>
+  left_join(
+    naep_reading_8_table,
+    by = "State"
+  ) |>
+  left_join(
+    low_income_naep_math_4_table,
+    by = "State"
+  ) |>
+  left_join(
+    low_income_naep_math_8_table,
+    by = "State"
+  ) |>
+  left_join(
+    low_income_naep_reading_4_table,
+    by = "State"
+  ) |>
+  left_join(
+    low_income_naep_reading_8_table,
+    by = "State"
+  )
+
+intro_table_6 <- intro_table_6_join |>
+  mutate(`Revenue 2019` = `Total Revenue - Per Pupil.x`) |>
+  mutate(`Revenue 2003` = `Total Revenue - Per Pupil.y`) |>
+  select(State, `Revenue 2019`, `Revenue 2003`, `Total Revenue Per Pupil Diff`, `Reading 4 Score Diff`, `Math 4 Score Diff`, `Reading 8 Score Diff`, `Math 8 Score Diff`, `Low Income Reading 4 Score`, `Low Income Math 4 Score`, `Low Income Reading 8 Score`, `Low Income Math 8 Score`)
+
+
+write_csv(intro_table_6, "output_data/additional_requests/intro_table_6_revised.csv")
+

@@ -1,10 +1,13 @@
 # RUN AFTER body-data-processing.R
 
-##################################################
-############### TEXT FOR THE BODY ################
-##################################################
+################################################################################
+############################ EXECUTIVE SUMMARY #################################
+################################################################################
 
-# Pull "United States" and get the 2020 `Total Revenue - Per Pupil` and 2002 `Total Revenue - Per Pupil`
+############################### Page 1 #########################################
+
+# Pull "United States" and get the percentage change from 2020
+# `Total Revenue - Per Pupil` and 2002 `Total Revenue - Per Pupil`
 us_2020 <- ss_data_cpi |>
     filter(State == "United States") |>
     filter(Year == 2020) |>
@@ -15,10 +18,11 @@ us_2002 <- ss_data_cpi |>
     filter(Year == 2002) |>
     select(`Total Revenue - Per Pupil`)
 
-us_2020
-us_2002
+# Difference
+us_2020[1, 2] / us_2002[1, 2] - 1
 
-# Pull "United States" and get the 2020 `Total Benefits - Per Pupil` and 2002 `Total Benefits - Per Pupil`
+# Pull "United States" and get the 2020 `Total Benefits - Per Pupil`and 2002
+# `Total Benefits - Per Pupil`
 us_2020_benefits <- ss_data_cpi |>
     filter(State == "United States") |>
     filter(Year == 2020) |>
@@ -46,9 +50,6 @@ us_2002_enrollment <- ss_data_cpi |>
     filter(Year == 2002) |>
     select(`Enrollment`)
 
-# Calculate the difference between us_2020_enrollment and us_2002_enrollment
-us_2020_enrollment[1, 2] - us_2002_enrollment[1, 2]
-
 # Calculate the percent change between us_2020_enrollment and us_2002_enrollment
 us_2020_enrollment[1, 2] / us_2002_enrollment[1, 2] - 1
 
@@ -63,11 +64,8 @@ teachers_non_teachers_2002 <- staffing |>
     filter(Year == 2002) |>
     select(`All staff`)
 
-# Calculate the difference between teachers_non_teachers_2020 and teachers_non_teachers_2002
-teachers_non_teachers_2020[1, 2] - teachers_non_teachers_2002[1, 2]
-
 # Calculate the percent change between teachers_non_teachers_2020 and teachers_non_teachers_2002
-teachers_non_teachers_2020[1, 2] / teachers_non_teachers_2002[1, 2] - 1
+teachers_non_teachers_2020[1, 1] / teachers_non_teachers_2002[1, 1] - 1
 
 # Get Non-Teachers from `All staff` - `Teachers` for 2020 and 2002 from staffing
 non_teachers_2020 <- staffing |>
@@ -82,10 +80,8 @@ non_teachers_2002 <- staffing |>
     select(`All staff`, `Teachers`) |>
     mutate(`Non-Teachers` = `All staff` - `Teachers`)
 
-# Calculate the difference between non_teachers_2020 and non_teachers_2002
-non_teachers_2020[1, 3] - non_teachers_2002[1, 3]
-
-(non_teachers_2020[1, 3] - non_teachers_2002[1, 3]) / (teachers_non_teachers_2020[1, 2] - teachers_non_teachers_2002[1, 2])
+# Calculate the percent change between non_teachers_2020 and non_teachers_2002
+non_teachers_2020[1, 3] / non_teachers_2002[1, 3] - 1
 
 
 #  Get average salary for teachers in the "United States" for 2020 and 2002
@@ -95,7 +91,7 @@ teachers_salary_2020 <- salary_pct |>
 
 
 
-# Key Trend #1
+############################## Key Trend #1 ####################################
 
 # Count the number of rows in rev_table that are greater than 0
 rev_table |>
@@ -113,34 +109,34 @@ rev_table |>
     filter(Growth > 0.5)
 
 
-# Get the `Federal Revenue - Per Pupil`, `State Revenue - Per Pupil`, `Local Revenue - Per Pupil`, `Total Revenue - Per Pupil` for 2020 and 2002 for the "United States"
-us_2020_rev <- ss_data_cpi |>
-    filter(State == "United States") |>
-    filter(Year == 2020) |>
-    select(`Federal Revenue - Per Pupil`, `State Revenue - Per Pupil`, `Local Revenue - Per Pupil`, `Total Revenue - Per Pupil`)
-
-us_2002_rev <- ss_data_cpi |>
-    filter(State == "United States") |>
-    filter(Year == 2002) |>
-    select(`Federal Revenue - Per Pupil`, `State Revenue - Per Pupil`, `Local Revenue - Per Pupil`, `Total Revenue - Per Pupil`)
-
-# Calculate the difference between us_2020_rev$`Federal Revenue - Per Pupil` and us_2002_rev$`Federal Revenue - Per Pupil`
-us_2020_rev$`Federal Revenue - Per Pupil` - us_2002_rev$`Federal Revenue - Per Pupil`
-
-# Calculate the percent change between us_2020_rev$`Federal Revenue - Per Pupil` and us_2002_rev$`Federal Revenue - Per Pupil`
-us_2020_rev$`Federal Revenue - Per Pupil` / us_2002_rev$`Federal Revenue - Per Pupil` - 1
-
-# Calculate the difference between us_2020_rev$`State Revenue - Per Pupil` and us_2002_rev$`State Revenue - Per Pupil`
-us_2020_rev$`State Revenue - Per Pupil` - us_2002_rev$`State Revenue - Per Pupil`
-
-# Calculate the percent change between us_2020_rev$`State Revenue - Per Pupil` and us_2002_rev$`State Revenue - Per Pupil`
-us_2020_rev$`State Revenue - Per Pupil` / us_2002_rev$`State Revenue - Per Pupil` - 1
-
-# Calculate the difference between us_2020_rev$`Local Revenue - Per Pupil` and us_2002_rev$`Local Revenue - Per Pupil`
-us_2020_rev$`Local Revenue - Per Pupil` - us_2002_rev$`Local Revenue - Per Pupil`
-
-# Calculate the percent change between us_2020_rev$`Local Revenue - Per Pupil` and us_2002_rev$`Local Revenue - Per Pupil`
-us_2020_rev$`Local Revenue - Per Pupil` / us_2002_rev$`Local Revenue - Per Pupil` - 1
+# # Get the `Federal Revenue - Per Pupil`, `State Revenue - Per Pupil`, `Local Revenue - Per Pupil`, `Total Revenue - Per Pupil` for 2020 and 2002 for the "United States"
+# us_2020_rev <- ss_data_cpi |>
+#     filter(State == "United States") |>
+#     filter(Year == 2020) |>
+#     select(`Federal Revenue - Per Pupil`, `State Revenue - Per Pupil`, `Local Revenue - Per Pupil`, `Total Revenue - Per Pupil`)
+#
+# us_2002_rev <- ss_data_cpi |>
+#     filter(State == "United States") |>
+#     filter(Year == 2002) |>
+#     select(`Federal Revenue - Per Pupil`, `State Revenue - Per Pupil`, `Local Revenue - Per Pupil`, `Total Revenue - Per Pupil`)
+#
+# # Calculate the difference between us_2020_rev$`Federal Revenue - Per Pupil` and us_2002_rev$`Federal Revenue - Per Pupil`
+# us_2020_rev$`Federal Revenue - Per Pupil` - us_2002_rev$`Federal Revenue - Per Pupil`
+#
+# # Calculate the percent change between us_2020_rev$`Federal Revenue - Per Pupil` and us_2002_rev$`Federal Revenue - Per Pupil`
+# us_2020_rev$`Federal Revenue - Per Pupil` / us_2002_rev$`Federal Revenue - Per Pupil` - 1
+#
+# # Calculate the difference between us_2020_rev$`State Revenue - Per Pupil` and us_2002_rev$`State Revenue - Per Pupil`
+# us_2020_rev$`State Revenue - Per Pupil` - us_2002_rev$`State Revenue - Per Pupil`
+#
+# # Calculate the percent change between us_2020_rev$`State Revenue - Per Pupil` and us_2002_rev$`State Revenue - Per Pupil`
+# us_2020_rev$`State Revenue - Per Pupil` / us_2002_rev$`State Revenue - Per Pupil` - 1
+#
+# # Calculate the difference between us_2020_rev$`Local Revenue - Per Pupil` and us_2002_rev$`Local Revenue - Per Pupil`
+# us_2020_rev$`Local Revenue - Per Pupil` - us_2002_rev$`Local Revenue - Per Pupil`
+#
+# # Calculate the percent change between us_2020_rev$`Local Revenue - Per Pupil` and us_2002_rev$`Local Revenue - Per Pupil`
+# us_2020_rev$`Local Revenue - Per Pupil` / us_2002_rev$`Local Revenue - Per Pupil` - 1
 
 
 rev_table |>
@@ -149,23 +145,34 @@ rev_table |>
 
 
 
-# Key Trend #2
+############################## Key Trend #2 ####################################
 
-# Get the `Total Revenue - Per Pupil` for 2020 and 2002 for the "United States"
+rev_table_key_trend_2 <- rev_table |>
+    filter(State != "United States") |>
+    arrange(-Growth) |>
+    filter(as.numeric(`Growth Rank`) < 11)
 
-us_2020_rev <- ss_data_cpi |>
-    filter(State == "United States") |>
-    filter(Year == 2020) |>
-    select(`Total Revenue - Per Pupil`)
+# Left join rev_table_key_trend_2 and salary_pct by "State"
+salary_pct_key_trend_2 <- salary_pct
+names(salary_pct_key_trend_2) <- c("Salary Growth Rank", "2020 Salary Rank", "State", "2020 Salary", "2002 Salary", "Salary Growth")
 
-us_2002_rev <- ss_data_cpi |>
-    filter(State == "United States") |>
-    filter(Year == 2002) |>
-    select(`Total Revenue - Per Pupil`)
+rev_table_key_trend_2 <- left_join(
+    rev_table_key_trend_2,
+    salary_pct_key_trend_2,
+    by = "State"
+) |>
+    mutate(`Salary Drop Flag` = ifelse(
+        `2020 Salary` < `2002 Salary`,
+        1,
+        0
+    )) |>
+    mutate(
+        `Revenue Change` = `2020` - `2002`,
+        `Salary Change` = `2020 Salary` - `2002 Salary`
+    )
 
-# Calculate the percent difference between us_2020_rev$`Total Revenue - Per Pupil` and us_2002_rev$`Total Revenue - Per Pupil`
-us_2020_rev$`Total Revenue - Per Pupil` / us_2002_rev$`Total Revenue - Per Pupil` - 1
 
+############################## Key Trend #3 ####################################
 
 # Get `Salary Adj` for 2020 and 2002 for the "United States" from salary_pct
 us_2020_salary <- salary_pct |>
@@ -199,8 +206,6 @@ us_2020_enrollment[1, 2] / us_2002_enrollment[1, 2] - 1
 
 
 
-# Key Trend #3
-
 # Staffing / Enrollment Changes
 
 staff_greater_enrollment <- enrollment_trends |>
@@ -224,61 +229,66 @@ non_teachers_growth <- enrollment_trends |>
     select(State, `Enrollment 2020`, `Enrollment 2002`, `Enrollment Growth`, `Total Staff Growth`, `Non-Teachers Growth`, `Teachers Growth`) |>
     mutate_at(vars(`Enrollment Growth`, `Teachers Growth`, `Non-Teachers Growth`, `Total Staff Growth`), round, 3) |>
     select(State, `Enrollment 2002`, `Enrollment 2020`, `Enrollment Growth`, `Total Staff Growth`, `Non-Teachers Growth`, `Teachers Growth`) |>
-    filter(State != "United States")
+    filter(State == "United States")
+
+non_teachers_growth
+
+# Calulate the enrollment loss and staff growth in Pennsylvania and Connecticut
+pa_ca_enrollment_staffing <- enrollment_trends |>
+    left_join(staffing_trends, by = "State") |>
+    arrange(`Enrollment Growth`) |>
+    select(State, `Enrollment 2020`, `Enrollment 2002`, `Enrollment Growth`, `Total Staff Growth`, `Non-Teachers Growth`, `Teachers Growth`) |>
+    mutate_at(vars(`Enrollment Growth`, `Teachers Growth`, `Non-Teachers Growth`, `Total Staff Growth`), round, 3) |>
+    select(State, `Enrollment 2002`, `Enrollment 2020`, `Enrollment Growth`, `Total Staff Growth`, `Non-Teachers Growth`, `Teachers Growth`) |>
+    filter(State == "Pennsylvania" | State == "Connecticut")
 
 
 
-# Load Complete US Staffing Data
-
-complete_staffing <- read_csv("input_data/complete_staffing.csv")
-
-# Calculate `Other support services staff ` as a percent of non-teachers
-complete_staffing_total <- complete_staffing |>
-    as.data.frame() |>
-    filter(Category != Teachers) |>
-    summarise(
-        `2002` = sum(`2002`),
-        `2020` = sum(`2020`)
-    )
+############################## Key Trend #4 ####################################
 
 
-# Get `Other support services staff` from Category
-
-other_support_services <- complete_staffing |>
-    filter(Category == "Other support services staff") |>
-    select(`2002`, `2020`)
-
-# Get `Instructional aids` from Category
-instructional_aids <- complete_staffing |>
-    filter(Category == "Instructional aides") |>
-    select(`2002`, `2020`)
-
-# Calculate the percent of `Other support services staff` from  `Total Non-Teachers`
-
-(other_support_services$`2020` + instructional_aids$`2020`) / complete_staffing_total$`2020`
-
-
-complete_staffing_table <- complete_staffing |>
-    mutate(growth = `2020` / `2002` - 1) |>
-    mutate(`2020 pct` = `2020` / complete_staffing_total$`2020`)
-
-
+# # Load Complete US Staffing Data
+#
+# complete_staffing <- read_csv("input_data/complete_staffing.csv")
+#
+# # Calculate `Other support services staff ` as a percent of non-teachers
+# complete_staffing_total <- complete_staffing |>
+#     as.data.frame() |>
+#     filter(Category != Teachers) |>
+#     summarise(
+#         `2002` = sum(`2002`),
+#         `2020` = sum(`2020`)
+#     )
+#
+# # Get `Other support services staff` from Category
+#
+# other_support_services <- complete_staffing |>
+#     filter(Category == "Other support services staff") |>
+#     select(`2002`, `2020`)
+#
+# # Get `Instructional aids` from Category
+# instructional_aids <- complete_staffing |>
+#     filter(Category == "Instructional aides") |>
+#     select(`2002`, `2020`)
+#
+# # Calculate the percent of `Other support services staff` from  `Total Non-Teachers`
+#
+# (other_support_services$`2020` + instructional_aids$`2020`) / complete_staffing_total$`2020`
+#
+#
+# complete_staffing_table <- complete_staffing |>
+#     mutate(growth = `2020` / `2002` - 1) |>
+#     mutate(`2020 pct` = `2020` / complete_staffing_total$`2020`)
 
 
 # Enrollment, Staffing Trends
 
-enrollment_staffing_trends |>
-    as.data.frame() |>
-    mutate(`Total Staff Growth Count` = ifelse(`Total Staff Growth` > 0, 1, 0)) |>
-    summarise(
-        `Total Staff Growth Count` = sum(`Total Staff Growth Count`)
-    )
-
-
-
-
-# Key Trend #4
-
+# enrollment_staffing_trends |>
+#     as.data.frame() |>
+#     mutate(`Total Staff Growth Count` = ifelse(`Total Staff Growth` > 0, 1, 0)) |>
+#     summarise(
+#         `Total Staff Growth Count` = sum(`Total Staff Growth Count`)
+#     )
 
 employee_benefits_table <- ss_data_cpi |>
     filter(Year == 2020) |>
@@ -297,58 +307,473 @@ employee_benefits_table <- ss_data_cpi |>
     select(State, `Total Benefits - Per Pupil 2020`, `Total Benefits - Per Pupil 2002`, `Percent Change`) |>
     arrange(desc(`Percent Change`))
 
+# Get `Total Revenue - Per Pupil` for 2020 and 2002 for the "United States" from ss_data_cpi
+# then calculate the difference between 2020 and 2002,
+# then left_join with employee benefits table by "State",
+# lastly calculate the difference of `Total Benefits - Per Pupil 2020` and `Total Benefits - Per Pupil 2002`
+# and calculate what percentage the difference of Total Benefits is of the difference of Total Revenue
+
+benefits_revenue_states <- ss_data_cpi |>
+    filter(Year == 2020) |>
+    filter(State != "United States") |>
+    select(State, `Total Revenue - Per Pupil`) |>
+    left_join(
+        ss_data_cpi |>
+            filter(Year == 2002) |>
+            filter(State != "United States") |>
+            select(State, `Total Revenue - Per Pupil`),
+        by = "State"
+    ) |>
+    mutate(`Total Revenue - Per Pupil 2020` = `Total Revenue - Per Pupil.x`) |>
+    mutate(`Total Revenue - Per Pupil 2002` = `Total Revenue - Per Pupil.y`) |>
+    mutate(
+        `Revenue Difference` = `Total Revenue - Per Pupil 2020` - `Total Revenue - Per Pupil 2002`
+    ) |>
+    left_join(
+        employee_benefits_table,
+        by = "State"
+    ) |>
+    mutate(
+        `Benefits Difference` = `Total Benefits - Per Pupil 2020` - `Total Benefits - Per Pupil 2002`,
+        `Benefits Difference as a Percent of Revenue Difference` = `Benefits Difference` / `Revenue Difference`
+    ) |>
+    select(State, `Total Revenue - Per Pupil 2020`, `Total Revenue - Per Pupil 2002`, `Revenue Difference`, `Total Benefits - Per Pupil 2020`, `Total Benefits - Per Pupil 2002`, `Benefits Difference`, `Benefits Difference as a Percent of Revenue Difference`)
+
 
 # Remove the United States row, add a rank column, then add back the United States row to the top of the table
 
-employee_benefits_table_states <- employee_benefits_table |>
-    as.data.frame() |>
-    filter(State != "United States") |>
-    arrange(desc(`Percent Change`)) |>
-    mutate(`Growth Rank` = row_number()) |>
-    arrange(desc(`Total Benefits - Per Pupil 2020`)) |>
-    mutate(`2020 Rank` = row_number()) |>
-    rename(
-        `2020` = `Total Benefits - Per Pupil 2020`,
-        `2002` = `Total Benefits - Per Pupil 2002`,
-        `Growth` = `Percent Change`
-    ) |>
-    select(`Growth Rank`, `2020 Rank`, State, `2020`, `2002`, `Growth`) |>
-    arrange(desc(`Growth`))
-
-
-employee_benefits_table_us <- employee_benefits_table |>
-    as.data.frame() |>
-    filter(State == "United States") |>
-    mutate(
-        `Growth Rank` = " ",
-        `2020 Rank` = " "
-    ) |>
-    rename(
-        `2020` = `Total Benefits - Per Pupil 2020`,
-        `2002` = `Total Benefits - Per Pupil 2002`,
-        `Growth` = `Percent Change`
-    ) |>
-    select(`Growth Rank`, `2020 Rank`, State, `2020`, `2002`, `Growth`)
-
-
-employee_benefits_table <- rbind(employee_benefits_table_us, employee_benefits_table_states)
-
-
-employee_benefits_table <- employee_benefits_table |>
-    # Round values
-    mutate(`Growth` = round(`Growth`, 3))
-
-
-employee_benefits_table |>
-    filter(State == "United States")
-
-# Calculate the the difference between 2020 and 2002
-
-employee_benefits_table$`2020` - employee_benefits_table$`2002`
+# employee_benefits_table_states <- employee_benefits_table |>
+#     as.data.frame() |>
+#     filter(State != "United States") |>
+#     arrange(desc(`Percent Change`)) |>
+#     mutate(`Growth Rank` = row_number()) |>
+#     arrange(desc(`Total Benefits - Per Pupil 2020`)) |>
+#     mutate(`2020 Rank` = row_number()) |>
+#     rename(
+#         `2020` = `Total Benefits - Per Pupil 2020`,
+#         `2002` = `Total Benefits - Per Pupil 2002`,
+#         `Growth` = `Percent Change`
+#     ) |>
+#     select(`Growth Rank`, `2020 Rank`, State, `2020`, `2002`, `Growth`) |>
+#     arrange(desc(`Growth`))
+#
+#
+# employee_benefits_table_us <- employee_benefits_table |>
+#     as.data.frame() |>
+#     filter(State == "United States") |>
+#     mutate(
+#         `Growth Rank` = " ",
+#         `2020 Rank` = " "
+#     ) |>
+#     rename(
+#         `2020` = `Total Benefits - Per Pupil 2020`,
+#         `2002` = `Total Benefits - Per Pupil 2002`,
+#         `Growth` = `Percent Change`
+#     ) |>
+#     select(`Growth Rank`, `2020 Rank`, State, `2020`, `2002`, `Growth`)
+#
+#
+# employee_benefits_table <- rbind(employee_benefits_table_us, employee_benefits_table_states)
+#
+#
+# employee_benefits_table <- employee_benefits_table |>
+#     # Round values
+#     mutate(`Growth` = round(`Growth`, 3))
+#
+#
+# employee_benefits_table |>
+#     filter(State == "United States")
+#
+# # Calculate the the difference between 2020 and 2002
+#
+# employee_benefits_table$`2020` - employee_benefits_table$`2002`
 
 
 
 # Key Trend #5
+
+# 4th Grade Reading NAEP Scores
+naep_reading_4_states <- naep_reading_4 |>
+    filter(Year == 2019) |>
+    # filter(State != "United States") |>
+    select(State, `NAEP`) |>
+    left_join(
+        naep_reading_4 |>
+            filter(Year == 2003) |>
+            select(State, NAEP),
+        by = "State"
+    ) |>
+    mutate(`Reading 4 Score Pct` = `NAEP.x` / `NAEP.y` - 1) |>
+    mutate(`Reading 4 Score Diff` = `NAEP.x` - `NAEP.y`) |>
+    select(State, `NAEP.x`, `NAEP.y`, `Reading 4 Score Pct`, `Reading 4 Score Diff`) |>
+    rename(`Reading Score 2019` = `NAEP.x`, `Reading Score 2003` = `NAEP.y`)
+
+# 4th Grade Math NAEP Scores
+naep_math_4_states <- naep_math_4 |>
+    filter(Year == 2019) |>
+    # filter(State != "United States") |>
+    select(State, `NAEP`) |>
+    left_join(
+        naep_math_4 |>
+            filter(Year == 2003) |>
+            select(State, NAEP),
+        by = "State"
+    ) |>
+    mutate(`Math 4 Score Pct` = `NAEP.x` / `NAEP.y` - 1) |>
+    mutate(`Math 4 Score Diff` = `NAEP.x` - `NAEP.y`) |>
+    select(State, `NAEP.x`, `NAEP.y`, `Math 4 Score Pct`, `Math 4 Score Diff`) |>
+    rename(`Math Score 2019` = `NAEP.x`, `Math Score 2003` = `NAEP.y`)
+
+
+# 8th Grade Reading NAEP Scores
+naep_reading_8_states <- naep_reading_8 |>
+    filter(Year == 2019) |>
+    # filter(State != "United States") |>
+    select(State, `NAEP`) |>
+    left_join(
+        naep_reading_8 |>
+            filter(Year == 2003) |>
+            select(State, NAEP),
+        by = "State"
+    ) |>
+    mutate(`Reading 8 Score Pct` = `NAEP.x` / `NAEP.y` - 1) |>
+    mutate(`Reading 8 Score Diff` = `NAEP.x` - `NAEP.y`) |>
+    select(State, `NAEP.x`, `NAEP.y`, `Reading 8 Score Pct`, `Reading 8 Score Diff`) |>
+    rename(`Reading Score 2019` = `NAEP.x`, `Reading Score 2003` = `NAEP.y`)
+
+# 8th Grade Math NAEP Scores
+naep_math_8_states <- naep_math_8 |>
+    filter(Year == 2019) |>
+    # filter(State != "United States") |>
+    select(State, `NAEP`) |>
+    left_join(
+        naep_math_8 |>
+            filter(Year == 2003) |>
+            select(State, NAEP),
+        by = "State"
+    ) |>
+    mutate(`Math 8 Score Pct` = `NAEP.x` / `NAEP.y` - 1) |>
+    mutate(`Math 8 Score Diff` = `NAEP.x` - `NAEP.y`) |>
+    select(State, `NAEP.x`, `NAEP.y`, `Math 8 Score Pct`, `Math 8 Score Diff`) |>
+    rename(`Math Score 2019` = `NAEP.x`, `Math Score 2003` = `NAEP.y`)
+
+
+
+# 4th Grade Low Income Reading NAEP Scores
+li_naep_reading_4_states <- low_income_naep_reading_4 |>
+    filter(Year == 2019) |>
+    filter(State != "District of Columbia") |>
+    filter(State != "Puerto Rico") |>
+    select(State, `Eligible`) |>
+    left_join(
+        low_income_naep_reading_4 |>
+            filter(Year == 2003) |>
+            select(State, Eligible),
+        by = "State"
+    ) |>
+    mutate(`Reading Score Diff` = `Eligible.x` - `Eligible.y`) |>
+    select(State, `Eligible.x`, `Eligible.y`, `Reading Score Diff`) |>
+    rename(`Reading Score 2019` = `Eligible.x`, `Reading Score 2003` = `Eligible.y`) |>
+    arrange(desc(`Reading Score Diff`))
+
+
+
+# 4th Grade Low Inocme Math NAEP Scores
+li_naep_math_4_states <- low_income_naep_math_4 |>
+    filter(Year == 2019) |>
+    filter(State != "District of Columbia") |>
+    filter(State != "Puerto Rico") |>
+    select(State, `Eligible`) |>
+    left_join(
+        low_income_naep_math_4 |>
+            filter(Year == 2003) |>
+            select(State, Eligible),
+        by = "State"
+    ) |>
+    mutate(`Math Score Diff` = `Eligible.x` - `Eligible.y`) |>
+    select(State, `Eligible.x`, `Eligible.y`, `Math Score Diff`) |>
+    rename(`Math Score 2019` = `Eligible.x`, `Math Score 2003` = `Eligible.y`) |>
+    arrange(desc(`Math Score Diff`))
+
+
+
+# 8th Grade Low Income Reading NAEP Scores
+li_naep_reading_8_states <- low_income_naep_reading_8 |>
+    filter(Year == 2019) |>
+    filter(State != "District of Columbia") |>
+    filter(State != "Puerto Rico") |>
+    select(State, `Eligible`) |>
+    left_join(
+        low_income_naep_reading_8 |>
+            filter(Year == 2003) |>
+            select(State, Eligible),
+        by = "State"
+    ) |>
+    mutate(`Reading Score Diff` = `Eligible.x` - `Eligible.y`) |>
+    select(State, `Eligible.x`, `Eligible.y`, `Reading Score Diff`) |>
+    rename(`Reading Score 2019` = `Eligible.x`, `Reading Score 2003` = `Eligible.y`) |>
+    arrange(desc(`Reading Score Diff`))
+
+
+# 8th Grade Low Income Math NAEP Scores
+li_naep_math_8_states <- low_income_naep_math_8 |>
+    filter(Year == 2019) |>
+    filter(State != "District of Columbia") |>
+    filter(State != "Puerto Rico") |>
+    select(State, `Eligible`) |>
+    left_join(
+        low_income_naep_math_8 |>
+            filter(Year == 2003) |>
+            select(State, Eligible),
+        by = "State"
+    ) |>
+    mutate(`Math Score Diff` = `Eligible.x` - `Eligible.y`) |>
+    select(State, `Eligible.x`, `Eligible.y`, `Math Score Diff`) |>
+    rename(`Math Score 2019` = `Eligible.x`, `Math Score 2003` = `Eligible.y`) |>
+    arrange(desc(`Math Score Diff`))
+
+
+
+
+################################################################################
+############################# INTRODUCTION #####################################
+################################################################################
+
+
+################################################################################
+################## ANALYSIS: NATIONAL SNAPSHOT AND KEY TRENDS ##################
+################################################################################
+
+
+# Pull "United States" and get the 2020 `Total Revenue - Per Pupil` and 2002 `Total Revenue - Per Pupil`
+us_2020 <- ss_data_cpi |>
+  filter(State == "United States") |>
+  filter(Year == 2020) |>
+  select(`Total Revenue - Per Pupil`)
+
+us_2002 <- ss_data_cpi |>
+  filter(State == "United States") |>
+  filter(Year == 2002) |>
+  select(`Total Revenue - Per Pupil`)
+
+us_2020
+us_2002
+
+
+# Pull "United States" and get the 2020 `Enrollment` and 2002 `Enrollment`
+us_2020_enrollment <- ss_data_cpi |>
+  filter(State == "United States") |>
+  filter(Year == 2020) |>
+  select(`Enrollment`)
+
+us_2002_enrollment <- ss_data_cpi |>
+  filter(State == "United States") |>
+  filter(Year == 2002) |>
+  select(`Enrollment`)
+
+# Calculate the difference between us_2020_enrollment and us_2002_enrollment
+us_2020_enrollment[1, 2] - us_2002_enrollment[1, 2]
+
+# Calculate the percent change between us_2020_enrollment and us_2002_enrollment
+us_2020_enrollment[1, 2] / us_2002_enrollment[1, 2] - 1
+
+# Get `All staff` for 2020 and 2002 from teachers_non_teachers
+teachers_non_teachers_2020 <- staffing |>
+  filter(State == "United States") |>
+  filter(Year == 2020) |>
+  select(`All staff`)
+
+teachers_non_teachers_2002 <- staffing |>
+  filter(State == "United States") |>
+  filter(Year == 2002) |>
+  select(`All staff`)
+
+
+# Calculate the difference between teachers_non_teachers_2020 and teachers_non_teachers_2002
+teachers_non_teachers_2020[1, 1] - teachers_non_teachers_2002[1, 1]
+
+# Calculate the percent change between teachers_non_teachers_2020 and teachers_non_teachers_2002
+teachers_non_teachers_2020[1, 1] / teachers_non_teachers_2002[1, 1] - 1
+
+
+# Get Non-Teachers from `All staff` - `Teachers` for 2020 and 2002 from staffing
+non_teachers_2020 <- staffing |>
+  filter(State == "United States") |>
+  filter(Year == 2020) |>
+  select(`All staff`, `Teachers`) |>
+  mutate(`Non-Teachers` = `All staff` - `Teachers`)
+
+non_teachers_2002 <- staffing |>
+  filter(State == "United States") |>
+  filter(Year == 2002) |>
+  select(`All staff`, `Teachers`) |>
+  mutate(`Non-Teachers` = `All staff` - `Teachers`)
+
+# Calculate the difference between non_teachers_2020 and non_teachers_2002
+non_teachers_2020[1, 3] - non_teachers_2002[1, 3]
+
+(non_teachers_2020[1, 3] - non_teachers_2002[1, 3]) / (teachers_non_teachers_2020[1, 1] - teachers_non_teachers_2002[1, 1])
+
+non_teachers_2020[1, 3] / non_teachers_2020[1, 1]
+
+# Get `Salary Adj` for 2020 and 2002 for the "United States" from salary_pct
+us_2020_salary <- salary_pct |>
+  filter(State == "United States") |>
+  filter(Year == 2020) |>
+  select(`Salary Adj`)
+
+us_2002_salary <- salary_pct |>
+  filter(State == "United States") |>
+  filter(Year == 2002) |>
+  select(`Salary Adj`)
+
+us_2020_salary
+us_2002_salary
+
+
+ss_data_cpi |>
+  filter(Year == 2020) |>
+  select(State, `Total Revenue - Per Pupil`) |>
+  left_join(
+    ss_data_cpi |>
+      filter(Year == 2002) |>
+      select(State, `Total Revenue - Per Pupil`) |>
+      mutate(
+        `Total Revenue - Per Pupil` = `Total Revenue - Per Pupil`
+      ),
+    by = "State"
+  ) |>
+  mutate(`Total Revenue - Per Pupil 2020` = `Total Revenue - Per Pupil.x`) |>
+  mutate(`Total Revenue - Per Pupil 2002` = `Total Revenue - Per Pupil.y`) |>
+  mutate(
+    `Percent Change` = `Total Revenue - Per Pupil 2020` / `Total Revenue - Per Pupil 2002` - 1
+  ) |>
+  select(State, `Total Revenue - Per Pupil 2020`, `Total Revenue - Per Pupil 2002`, `Percent Change`) |>
+  mutate(greater_than_50pct = ifelse(`Percent Change` > 0.5, 1, 0)) |>
+  filter(greater_than_50pct == 1)
+
+
+rev_table |>
+  filter(State != "United States") |>
+  filter(Growth > 0.5) |>
+  count()
+
+# Get the `Federal Revenue - Per Pupil`, `State Revenue - Per Pupil`, `Local Revenue - Per Pupil`, `Total Revenue - Per Pupil` for 2020 and 2002 for the "United States"
+us_2020_rev <- ss_data_cpi |>
+    filter(State == "United States") |>
+    filter(Year == 2020) |>
+    select(`Federal Revenue - Per Pupil`, `State Revenue - Per Pupil`, `Local Revenue - Per Pupil`, `Total Revenue - Per Pupil`)
+
+us_2002_rev <- ss_data_cpi |>
+    filter(State == "United States") |>
+    filter(Year == 2002) |>
+    select(`Federal Revenue - Per Pupil`, `State Revenue - Per Pupil`, `Local Revenue - Per Pupil`, `Total Revenue - Per Pupil`)
+
+# Calculate the difference between us_2020_rev$`Federal Revenue - Per Pupil` and us_2002_rev$`Federal Revenue - Per Pupil`
+us_2020_rev$`Federal Revenue - Per Pupil` - us_2002_rev$`Federal Revenue - Per Pupil`
+
+# Calculate the percent change between us_2020_rev$`Federal Revenue - Per Pupil` and us_2002_rev$`Federal Revenue - Per Pupil`
+us_2020_rev$`Federal Revenue - Per Pupil` / us_2002_rev$`Federal Revenue - Per Pupil` - 1
+
+# Calculate the difference between us_2020_rev$`State Revenue - Per Pupil` and us_2002_rev$`State Revenue - Per Pupil`
+us_2020_rev$`State Revenue - Per Pupil` - us_2002_rev$`State Revenue - Per Pupil`
+
+# Calculate the percent change between us_2020_rev$`State Revenue - Per Pupil` and us_2002_rev$`State Revenue - Per Pupil`
+us_2020_rev$`State Revenue - Per Pupil` / us_2002_rev$`State Revenue - Per Pupil` - 1
+
+# Calculate the difference between us_2020_rev$`Local Revenue - Per Pupil` and us_2002_rev$`Local Revenue - Per Pupil`
+us_2020_rev$`Local Revenue - Per Pupil` - us_2002_rev$`Local Revenue - Per Pupil`
+
+# Calculate the percent change between us_2020_rev$`Local Revenue - Per Pupil` and us_2002_rev$`Local Revenue - Per Pupil`
+us_2020_rev$`Local Revenue - Per Pupil` / us_2002_rev$`Local Revenue - Per Pupil` - 1
+
+
+ss_data_cpi |>
+  filter(Year == 2020) |>
+  select(State, `Total Revenue - Per Pupil`) |>
+  left_join(
+    ss_data_cpi |>
+      filter(Year == 2002) |>
+      select(State, `Total Revenue - Per Pupil`) |>
+      mutate(
+        `Total Revenue - Per Pupil` = `Total Revenue - Per Pupil`
+      ),
+    by = "State"
+  ) |>
+  mutate(`Total Revenue - Per Pupil 2020` = `Total Revenue - Per Pupil.x`) |>
+  mutate(`Total Revenue - Per Pupil 2002` = `Total Revenue - Per Pupil.y`) |>
+  mutate(
+    `Percent Change` = `Total Revenue - Per Pupil 2020` / `Total Revenue - Per Pupil 2002` - 1
+  ) |>
+  select(State, `Total Revenue - Per Pupil 2020`, `Total Revenue - Per Pupil 2002`, `Percent Change`) |>
+  filter(`Total Revenue - Per Pupil 2020` > 20e3) |>
+  arrange(desc(`Total Revenue - Per Pupil 2020`))
+
+
+# Pull "United States" and get the 2020 `Total Revenue - Per Pupil` and 2002 `Total Revenue - Per Pupil`
+us_2020 <- ss_data_cpi |>
+  filter(State == "United States") |>
+  filter(Year == 2020) |>
+  select(`Total Revenue - Per Pupil`)
+
+us_2002 <- ss_data_cpi |>
+  filter(State == "United States") |>
+  filter(Year == 2002) |>
+  select(`Total Revenue - Per Pupil`)
+
+us_2020
+us_2002
+
+
+############################## Key Trend #2 ####################################
+
+# United States
+us_rev_table_key_trend_2 <- rev_table |>
+  filter(State == "United States") |>
+  arrange(-Growth) 
+
+
+rev_table_key_trend_2 <- rev_table |>
+  filter(State != "United States") |>
+  arrange(-Growth) |>
+  filter(as.numeric(`Growth Rank`) < 11)
+
+# Left join rev_table_key_trend_2 and salary_pct by "State"
+salary_pct_key_trend_2 <- salary_pct
+names(salary_pct_key_trend_2) <- c("Salary Growth Rank", "2020 Salary Rank", "State", "2020 Salary", "2002 Salary", "Salary Growth")
+
+
+
+us_rev_table_key_trend_2 <- left_join(
+  us_rev_table_key_trend_2,
+  salary_pct_key_trend_2,
+  by = "State"
+) |>
+  mutate(`Salary Drop Flag` = ifelse(
+    `2020 Salary` < `2002 Salary`,
+    1,
+    0
+  )) |>
+  mutate(
+    `Revenue Change` = `2020` - `2002`,
+    `Salary Change` = `2020 Salary` - `2002 Salary`
+  )
+
+rev_table_key_trend_2 <- left_join(
+  rev_table_key_trend_2,
+  salary_pct_key_trend_2,
+  by = "State"
+) |>
+  mutate(`Salary Drop Flag` = ifelse(
+    `2020 Salary` < `2002 Salary`,
+    1,
+    0
+  )) |>
+  mutate(
+    `Revenue Change` = `2020` - `2002`,
+    `Salary Change` = `2020 Salary` - `2002 Salary`
+  )
+
 
 intro_table_6
 
@@ -569,7 +994,7 @@ support_serivces_us_diff <- support_services_us |>
 round(0.2535084, 3)
 
 support_services_us_pct |>
-  t()
+    t()
 
 ss_data_cpi |>
     filter(Year == 2020) |>
