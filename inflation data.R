@@ -1,3 +1,4 @@
+#Script to reproduce the CPI data
 library(quantmod)
 library(tidyverse)
 library(lubridate)
