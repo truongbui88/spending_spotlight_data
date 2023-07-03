@@ -2,6 +2,7 @@
 library(tidyverse)
 library(jsonlite)
 library(zoo)
+library(janitor)
 options(scipen = 999)
 
 # Load data
@@ -62,6 +63,18 @@ ss_data_cpi <- ss_data |>
   mutate(`Total Debt` = `Short-Term Debt` + `Long-Term Debt`) |>
   mutate(`Total Debt - Per Pupil` = `Short-Term Debt - Per Pupil` + `Long-Term Debt - Per Pupil`)
 
+
+#Truong's comment on ss_data_cpi: the code chunk above can be significantly simplified as shown below.
+#The CPI data looks good and can be reproduced by the "inflation data.R" script. 
+ss_data_cpi2 <- ss_data |> 
+  clean_names() |> 
+  filter(state != "District of Columbia") |> 
+  arrange(state, year) |> 
+  group_by(state) |> 
+  mutate(across(c(total_revenue:long_term_debt_per_pupil), ~.x * last(cpi_average_of_july_to_june) / cpi_average_of_july_to_june)) |> 
+  ungroup() |> 
+  mutate(total_debt = short_term_debt + long_term_debt,
+         total_debt_per_pupil = short_term_debt_per_pupil + long_term_debt_per_pupil)
 
 
 # Revenue data, with Federal Revenue, State Revenue, and Local Revenue as the columns.
@@ -167,6 +180,11 @@ basic_rev_data_json <- toJSON(basic_rev_data, pretty = TRUE)
 write(basic_rev_data_json, "output_data/appendix/basic_rev_data.json")
 
 
+#Truong's comment on basic_rev_data: more efficient transformation can be done as shown below:
+basic_rev_data2 <- ss_data_cpi2 |> 
+  select(year, state, federal_revenue_per_pupil, state_revenue_per_pupil, local_revenue_per_pupil) |> 
+  mutate(year = paste0(year, "-01-01"))
+
 
 # Salary & Benefits
 
@@ -241,6 +259,9 @@ ss_data_cpi_salary_benefits_json <- toJSON(ss_data_cpi_salary_benefits_wide, pre
 write(ss_data_cpi_salary_benefits_json, "output_data/appendix/salary_benefits.json")
 
 
+#Truong's comment on ss_data_cpi_salary_benefits: the code needs to be cleaned up as we don't need that many transformations to produce the same result.
+
+
 # Create a table with `Total Revenue - Per Pupil` and Enrollment change for each state between 2002 and 2020
 
 # Create a data frame with the change in `Total Revenue - Per Pupil` for each state between 2002 and 2020
@@ -286,6 +307,15 @@ rev_enroll_change_json <- toJSON(rev_enroll_change, pretty = TRUE)
 
 write(rev_enroll_change_json, "output_data/appendix/rev_enrollment_table.json")
 
+
+#Truong's comment on revenue and enrollment change calculation: can be done more efficiently as shown below:
+rev_change2 <- ss_data_cpi2 |> 
+  select(year, state, total_revenue_per_pupil, enrollment) |> 
+  group_by(state) |> 
+  summarise(total_revenue_per_pupil_percent_change = total_revenue_per_pupil[year == 2020] / total_revenue_per_pupil[year == 2002] - 1,
+            total_revenue_per_pupil_2020 = total_revenue_per_pupil[year == 2020],
+            enrollment_percent_change = enrollment[year == 2020] / enrollment[year == 2002] - 1,
+            enrollment_2020 = enrollment[year == 2020])
 
 
 # Enrollment and Staffing Trends
@@ -463,6 +493,42 @@ naep_rev_data_json <- toJSON(naep_rev_data, pretty = TRUE)
 write(naep_rev_data_json, "output_data/appendix/naep_rev_data.json")
 
 
+#Truong's comment on NAEP data processing: the data can be processed more efficiently as below:
+naep_math_8 <- naep_math_8 |> clean_names() |> 
+  rename(naep_math_8 = naep) |> 
+  select(1:3)
+
+naep_math_4 <- naep_math_4 |> clean_names() |> 
+  rename(naep_math_4 = naep) |> 
+  select(1:3)
+
+naep_reading_8 <- naep_reading_8 |> clean_names() |> 
+  rename(naep_reading_8 = naep) |> 
+  select(1:3)
+
+naep_reading_4 <- naep_reading_4 |> clean_names() |> 
+  rename(naep_reading_4 = naep) |> 
+  select(1:3)
+
+rev_data2 <- rev_data |> clean_names()
+
+naep_rev_data2 <- naep_math_8 |> 
+  left_join(naep_math_4) |> 
+  left_join(naep_reading_8) |> 
+  left_join(naep_reading_4) |> 
+  right_join(rev_data2) |> 
+  arrange(state, year) |> 
+  filter(!year %in% c(2002, 2020)) |> 
+  group_by(state) |> 
+  mutate(across(contains("naep"), na.approx),   #linear interpolation
+         across(naep_math_8:total_revenue_per_pupil, ~ .x / .x[year == 2003] - 1, .names = "{.col}_change"),  #cumulative growth calculation (baseline year is 2003)
+         year = paste0(year, "-01-01")) |> 
+  ungroup() |> 
+  #rearrange the columns for readability
+  select(year, state, total_revenue_per_pupil, total_revenue_per_pupil_change,
+         naep_rev_data2 |> select(contains("naep")) |> names() |> sort())
+
+
 # Low Income NAEP
 
 # Load 4th and 8th grade NAEP data
@@ -577,3 +643,6 @@ li_naep_rev_data <- li_naep_math_8_rev |>
 li_naep_rev_data_json <- toJSON(li_naep_rev_data, pretty = TRUE)
 
 write(li_naep_rev_data_json, "output_data/appendix/li_naep_rev_data.json")
+
+
+#Truong's comment: similar to the non-low-income NAEP data, the low-income NAEP data can be processed more efficiently using the same method above.
